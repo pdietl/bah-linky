@@ -14,10 +14,18 @@ pico_sdk_init()
 
 add_executable(app
     main.c
+    usb/usb_descriptors.c
     )
 
+target_include_directories(app PUBLIC usb)
+
 # pull in common dependencies
-target_link_libraries(app pico_stdlib)
+target_link_libraries(app
+    pico_stdlib
+    pico_multicore
+    pico_stdio_usb
+    tinyusb_device
+    )
 
 # create map/bin/hex file etc.
 pico_add_extra_outputs(app)
